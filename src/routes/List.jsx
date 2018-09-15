@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 class List extends React.Component {
+
+  componentDidMount() {
+    let { query } = queryString.parse(this.props.location.search);
+  }
 
   render() {
     return (

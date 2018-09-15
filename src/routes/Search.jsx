@@ -1,17 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Logo from '../components/Logo.jsx';
+
+const logo = {
+  backgroundColor: 'red'
+};
 
 class Search extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state =  { query: '' };
+    this.search = this.search.bind(this);
+    this.queryChange = this.queryChange.bind(this);
+  }
+
+  search(e) {
+    e.preventDefault();
+    window.location.href = `/list?query=${this.state.query}`;
+  }
+
+  queryChange(e) {
+    this.setState({ query: e.target.value});
+  }
 
   render() {
     return (
       <div>
-        Search
-        <ul>
-          <li><Link to='/'>Login Page</Link></li>
-          <li><Link to='/list'>List Page</Link></li>
-          <li><Link to='/recipe'>Recipe Page</Link></li>
-        </ul>
+        <Logo styles={logo} />
+        <form onSubmit={this.search}>
+          <input type='text' value={this.state.query} onChange={this.queryChange} />
+          <br/>
+          <button type='submit'>Find</button>
+        </form>
       </div>
     );
   }
