@@ -58,7 +58,14 @@ class Search extends React.Component {
           left: "50%",
           transform: "translate(-50%, -50%)"
         }}>
-          <input id='text' type='text' value={this.state.query} onChange={this.queryChange} style={input} />
+          <input id='text' type='text' 
+          value={this.state.query} 
+          onChange={this.queryChange} 
+          style={input} 
+          onFocus={() => {
+            let textbox = document.getElementById("text");
+            textbox.style.outline = "none";
+          }}/>
           <br/>
           <button id='submit' type='submit' style={button}           
             onMouseEnter={() => {
@@ -70,7 +77,8 @@ class Search extends React.Component {
               let button = document.getElementById("submit");
               button.style.borderColor = COLORS.YELLOW,
                 button.style.color = COLORS.YELLOW
-          }}>
+            }}
+          >
             FIND FOOD
           </button>
         </form>
