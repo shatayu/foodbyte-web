@@ -9,18 +9,26 @@ const page = {
 };
 
 const input = {
-  fontFamily: 'Trebuchet MS',
   fontSize: '1.5em',
   margin: '1em 1em 1em 1em',
-  width: '26.25%'
+  padding: '10px',
+  width: '65vw',
+  height: '2.25em',
+
+  borderRadius: '16px',
+  border: 'none'
 };
 
 const button = {
-  fontFamily: 'Trebuchet MS',
-  fontSize: '1em',
-  backgroundColor: COLORS.YELLOW,
-  color: COLORS.RED,
-  border: `2px solid ${COLORS.RED}`
+  width: "500px",
+  height: "80px",
+  backgroundColor: COLORS.PINK,
+
+  borderRadius: "35px",
+  border: "10px solid " + COLORS.YELLOW,
+
+  color: COLORS.YELLOW,
+  fontSize: "30px"
 };
 
 class Search extends React.Component {
@@ -44,10 +52,27 @@ class Search extends React.Component {
   render() {
     return (
       <div style={page}>
-        <form onSubmit={this.search}>
-          <input type='text' value={this.state.query} onChange={this.queryChange} style={input} />
+        <form onSubmit={this.search} style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)"
+        }}>
+          <input id='text' type='text' value={this.state.query} onChange={this.queryChange} style={input} />
           <br/>
-          <button type='submit' style={button}>Find Food</button>
+          <button id='submit' type='submit' style={button}           
+            onMouseEnter={() => {
+              let button = document.getElementById("submit");
+              button.style.borderColor = COLORS.WHITE,
+                button.style.color = COLORS.WHITE
+            }}
+            onMouseLeave={() => {
+              let button = document.getElementById("submit");
+              button.style.borderColor = COLORS.YELLOW,
+                button.style.color = COLORS.YELLOW
+          }}>
+            FIND FOOD
+          </button>
         </form>
       </div>
     );
