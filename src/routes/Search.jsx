@@ -1,13 +1,8 @@
 import React from 'react';
 import Logo from '../components/Logo.jsx';
+import STYLE_CONSTS from '../style';
 
-const COLORS = {
-  WHITE: '#FFFFFF',
-  YELLOW: '#FEE608',
-  ORANGE: '#FB9D07',
-  PINK: '#EC5357',
-  RED: '#971D12'
-};
+let COLORS = STYLE_CONSTS.COLORS;
 
 const page = {
   textAlign: 'center'

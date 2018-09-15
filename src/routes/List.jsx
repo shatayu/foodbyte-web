@@ -1,14 +1,6 @@
 import React from 'react';
 import queryString from 'query-string';
-
-const status = {
-
-};
-
-const StatusMessage = ({ status, style }) => {
-  let message = status ? 'We are fetching your recipes!' : 'Here are your recipes:';
-  return <div style={style}>{message}</div>;
-};
+import StatusMessage from '../components/StatusMessage.jsx';
 
 class List extends React.Component {
 
@@ -25,7 +17,7 @@ class List extends React.Component {
     let { fetching } = this.state;
     return (
       <div>
-        <StatusMessage status={fetching} style={status} />
+        <StatusMessage status={fetching} />
       </div>
     );
   }
