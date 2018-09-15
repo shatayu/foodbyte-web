@@ -65,7 +65,6 @@ class Recipe extends React.Component {
         <div>
           <h1>{name}</h1>
           <sub>{blurb}</sub>
-          <img src={img} />
           <div>
             <p>
               Ingredients: <i>{ingredients}</i><br/>
