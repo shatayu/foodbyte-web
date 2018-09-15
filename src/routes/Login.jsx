@@ -45,15 +45,28 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* Login
-        <ul>
-          <li><Link to='/search'>Search Page</Link></li>
-          <li><Link to='/list'>List Page</Link></li>
-          <li><Link to='/recipe'>Recipe Page</Link></li>
-        </ul> */}
-
-        <button id="login" onClick={() => {this.login()}}>Login</button>
+      <div style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)"
+      }}>
+        <button id="login" 
+          onClick={() => {this.login()}}
+          style = {
+            {
+              width: "500px",
+              height: "200px",
+              backgroundColor: "#FFFFFF",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)"
+            }
+          }
+        >
+          Login
+        </button>
       </div>
     );
   }
