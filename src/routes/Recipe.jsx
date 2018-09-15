@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class Recipe extends React.Component {
-
   render() {
     return (
       <div>
@@ -15,7 +14,6 @@ class Recipe extends React.Component {
       </div>
     );
   }
-  
 }
 
 export default Recipe;
