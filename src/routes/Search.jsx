@@ -1,8 +1,18 @@
 import React from 'react';
 import Logo from '../components/Logo.jsx';
 
-const logo = {
-  backgroundColor: 'red'
+const page = {
+  textAlign: 'center'
+};
+
+const input = {
+  fontFamily: 'Trebuchet MS',
+  fontSize: '1.5em'
+};
+
+const button = {
+  fontFamily: 'Trebuchet MS',
+  fontSize: '1em'
 };
 
 class Search extends React.Component {
@@ -25,12 +35,12 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
-        <Logo styles={logo} />
+      <div style={page}>
+        <Logo />
         <form onSubmit={this.search}>
-          <input type='text' value={this.state.query} onChange={this.queryChange} />
+          <input type='text' value={this.state.query} onChange={this.queryChange} style={input} />
           <br/>
-          <button type='submit'>Find</button>
+          <button type='submit' style={button}>Find</button>
         </form>
       </div>
     );

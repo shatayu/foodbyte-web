@@ -1,7 +1,12 @@
 import React from 'react';
 
-const Logo = ({ styles }) => {
-  console.log(styles)
-  return <div styles={styles}>Food🅱yte</div>;
+const style = {
+  fontSize: '4.75em',
+  fontWeight: 'bold',
+  fontFamily: 'Trebuchet MS'
+};
+
+const Logo = () => {
+  return <div style={style}>Food🅱yte</div>;
 };
 export default Logo;
