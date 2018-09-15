@@ -1,5 +1,4 @@
 import React from 'react';
-import STYLE_CONSTS from '../style';
 
 const cardDimension = 350;
 
@@ -17,8 +16,9 @@ const mainCard = {
   overflow: 'hidden'
 };
 
-const container = {
-  padding: "2px 16px"
+const text = {
+  padding: "2px 16px",
+  fontFamily: 'Helvetica'
 }
 
 // const imgwrapper = {
@@ -35,16 +35,41 @@ let totalMargin = 15;
 let borderThickness = 2;
 let marginThickness = totalMargin - borderThickness;
 
+const cardComponent = {
+  position: 'relative',
+  width: '100%',
+  height: '50%'
+}
+
+const centeringContainer = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  overflow: 'hidden',
+  width: '75%'
+}
+
 const img = {
-  maxHeight: '100px',
+  maxHeight: '150px',
+  marginTop: '30px'
   // margin: marginThickness + 'px',
   // border: borderThickness + 'px solid #BBBBBB',
-
-  borderRadius: '5px',
-  // position: 'absolute',
-  // top: '50%',
-  // transform: "translate(0, -50%)"
 };
+
+const name = {
+  color: 'black',
+  fontFamily: 'helvetica'
+}
+
+const time = {
+  fontFamily: 'helvetica',
+  color: '#AAAAAA',
+  position: 'absolute',
+  bottom: '0px',
+  left: '50%',
+  transform: 'translateX(-50%)'
+}
 
 const RecipeCard = ({ recipe, onClick }) => {
   // return (
@@ -61,10 +86,25 @@ const RecipeCard = ({ recipe, onClick }) => {
 
   return (
     <div style={mainCard} onClick={onClick}>
-      <img src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} style={img}></img>
-      <div style={container}>
-        <h4><b>Sample Title That is Really Long Sample Title That is Really Long Sample Title That is Really Long Sample Title That is Really Long</b></h4> 
-        <p>25 minutes</p> 
+      {/* <div style={outerContainer}>
+      <div style={innerContainer}>
+        <img src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} style={img}></img>
+        <div style={text}>
+          <span style={name}>SAMPLE TITLE THAT IS REALLY LONG </span> 
+          <p style={time}>25 minutes</p> 
+        </div>
+      </div>
+      </div> */}
+      <div style={cardComponent}>
+        <div style={centeringContainer}>
+          <img src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} style={img}></img>
+        </div>
+      </div>
+      <div style={cardComponent}>
+        <div style={centeringContainer}>
+          <span style={name}>SAMPLE TITLE THAT IS REALLY LONG MEME MEME MEME  </span> 
+        </div>
+        <p style={time}>25 minutes</p> 
       </div>
     </div>
   )
