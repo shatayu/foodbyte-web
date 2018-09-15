@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import ReactDOM from 'react-dom';
 
 import routes from './routes/index.js';
 import Logo from './components/Logo.jsx';
@@ -22,5 +21,3 @@ const App = () => {
   );
 };
 export default App;
-
-ReactDOM.render(<App />, document.getElementById('app'));
