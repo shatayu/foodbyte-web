@@ -78,7 +78,6 @@ class Recipe extends React.Component {
     }
     return <div><h1>{name}</h1></div>
   }
-  
 }
 
 export default Recipe;

@@ -31,7 +31,9 @@ class List extends React.Component {
   render() {
     let { fetching, recipes } = this.state;
     return (
-      <div>
+      <div style = {{
+        textAlign: 'center'
+      }}>
         <StatusMessage status={fetching} />
         <div>
           {recipes}
