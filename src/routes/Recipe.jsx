@@ -26,7 +26,7 @@ const getSteps = (recipe) => {
   return steps.map((step, index) => <p key={index}>Step {step.number}: {step.step}</p>);
 };
 const getBlurb = (recipe) => {
-  return `This dish takes ${recipe.preparationMinutes + recipe.cookingMinutes} minutes to prepare
+  return `This dish takes ${recipe.readyInMinutes} minutes to prepare
     and costs approximately $${recipe.pricePerServing} and serves ${recipe.servings}!`;
 };
 
@@ -40,6 +40,7 @@ class Recipe extends React.Component {
       equipment: '',
       steps: [],
       blurb: '',
+      img: '',
       fetching: true
     };
   }
@@ -53,17 +54,18 @@ class Recipe extends React.Component {
       let equipment = getEquipment(data);
       let steps = getSteps(data);
       let blurb = getBlurb(data);
-      this.setState({ fetching: false, blurb, ingredients, equipment, steps });
+      this.setState({ fetching: false, blurb, ingredients, equipment, steps, img: data.image });
     });
   }
 
   render() {
-    let { name, blurb, fetching, equipment, ingredients, steps } = this.state;
+    let { name, blurb, fetching, equipment, ingredients, steps, img } = this.state;
     if (!fetching) {
       return (
         <div>
           <h1>{name}</h1>
           <sub>{blurb}</sub>
+          <img src={img} />
           <div>
             <p>
               Ingredients: <i>{ingredients}</i><br/>
