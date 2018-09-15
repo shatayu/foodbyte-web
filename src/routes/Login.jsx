@@ -1,11 +1,10 @@
 import React from 'react';
 let firebase = require("firebase/app");
+let style = require("../style");
 require("firebase/auth");
 
 class Login extends React.Component {
   login() {
-    console.log("Attempting to log in with Google");
-
     // basic firebase setup
     var config = {
       apiKey: "AIzaSyBbOoyLRRY37emkwn4pkcanS_0LGbKQMpY",
@@ -15,22 +14,25 @@ class Login extends React.Component {
       storageBucket: "foodbyte-ea563.appspot.com",
       messagingSenderId: "13360444459"
     };
-    
+
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
-  }
+    }
 
     // authenticate
     var provider = new firebase.auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithPopup(provider).then(function (result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
       //var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      console.log(user);
+      localStorage.setItem("email", user.email);
+      if (user.email != null) {
+        window.open("search", "_self");
+      }
       // ...
-    }).catch(function(error) {
+    }).catch(function (error) {
       // // Handle Errors here.
       // console.log(error);
       // var errorCode = error.code;
@@ -45,6 +47,11 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log(localStorage.getItem("email"));
+    if (localStorage.getItem("email") != null) {
+      window.open("search", "_self");
+    }
+
     return (
       <div style={{
         position: "absolute",
@@ -52,26 +59,42 @@ class Login extends React.Component {
         left: "50%",
         transform: "translate(-50%, -50%)"
       }}>
-        <button id="login" 
-          onClick={() => {this.login()}}
-          style = {
+        <button id="login"
+          onClick={() => { this.login() }}
+          onMouseEnter={() => {
+            let button = document.getElementById("login");
+            button.style.borderColor = style.default.COLORS.WHITE,
+              button.style.color = style.default.COLORS.WHITE
+          }}
+          onMouseLeave={() => {
+            let button = document.getElementById("login");
+            button.style.borderColor = style.default.COLORS.YELLOW,
+              button.style.color = style.default.COLORS.YELLOW
+          }}
+          style={
             {
               width: "500px",
-              height: "200px",
-              backgroundColor: "#FFFFFF",
+              height: "120px",
+              backgroundColor: style.default.COLORS.PINK,
               position: "absolute",
               top: "50%",
               left: "50%",
-              transform: "translate(-50%, -50%)"
+              transform: "translate(-50%, -50%)",
+
+              borderRadius: "35px",
+              border: "10px solid " + style.default.COLORS.YELLOW,
+
+              color: style.default.COLORS.YELLOW,
+              fontSize: "30px"
             }
           }
         >
-          TopPepe
+          LOG IN WITH GOOGLE
         </button>
       </div>
     );
   }
-  
+
 }
 
 export default Login;

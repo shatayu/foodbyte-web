@@ -5,7 +5,6 @@ import routes from './routes/index.js';
 import Logo from './components/Logo.jsx';
 
 const App = () => {
-  console.log("test4");
   return (
     <BrowserRouter>
       <div>
