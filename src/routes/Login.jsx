@@ -65,7 +65,7 @@ class Login extends React.Component {
             }
           }
         >
-          Login
+          Iguana
         </button>
       </div>
     );
