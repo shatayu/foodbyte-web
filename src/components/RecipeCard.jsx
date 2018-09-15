@@ -23,6 +23,8 @@ const RecipeCard = ({ recipe, onClick }) => {
       <span style={imgwrapper}>
         <img style={img} src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} />
       </span>
+      <h3>{recipe.title}</h3>
+      <p>Recipe ready in: {recipe.readyInMinutes} minutes</p>
     </div>
   );
 };
