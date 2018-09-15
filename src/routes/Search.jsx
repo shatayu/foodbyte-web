@@ -1,18 +1,31 @@
 import React from 'react';
 import Logo from '../components/Logo.jsx';
 
+const COLORS = {
+  WHITE: '#FFFFFF',
+  YELLOW: '#FEE608',
+  ORANGE: '#FB9D07',
+  PINK: '#EC5357',
+  RED: '#971D12'
+};
+
 const page = {
   textAlign: 'center'
 };
 
 const input = {
   fontFamily: 'Trebuchet MS',
-  fontSize: '1.5em'
+  fontSize: '1.5em',
+  margin: '1em 1em 1em 1em',
+  width: '26.25%'
 };
 
 const button = {
   fontFamily: 'Trebuchet MS',
-  fontSize: '1em'
+  fontSize: '1em',
+  backgroundColor: COLORS.YELLOW,
+  color: COLORS.RED,
+  border: `2px solid ${COLORS.RED}`
 };
 
 class Search extends React.Component {
@@ -36,11 +49,10 @@ class Search extends React.Component {
   render() {
     return (
       <div style={page}>
-        <Logo />
         <form onSubmit={this.search}>
           <input type='text' value={this.state.query} onChange={this.queryChange} style={input} />
           <br/>
-          <button type='submit' style={button}>Find</button>
+          <button type='submit' style={button}>Find Food</button>
         </form>
       </div>
     );
