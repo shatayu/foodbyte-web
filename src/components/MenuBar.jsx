@@ -70,7 +70,7 @@ class MenuBar extends React.Component {
               onMouseLeave={this.userLeave.bind(this)}
               color={userColor} style={margin} />
         </Link>
-        <Link to='/'>
+        <Link to='/search'>
           <Home size={50} 
             onMouseEnter={this.homeEnter.bind(this)} 
             onMouseLeave={this.homeLeave.bind(this)} 
