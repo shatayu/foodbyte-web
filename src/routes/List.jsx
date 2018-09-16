@@ -6,6 +6,9 @@ import RecipeCard from '../components/RecipeCard';
 let firebase = require('firebase/app');
 require('firebase/database');
 
+let firebaseCredentials = require('../firebaseCredentials');
+
+
 let config = {
   apiKey: "AIzaSyBbOoyLRRY37emkwn4pkcanS_0LGbKQMpY",
   authDomain: "foodbyte-ea563.firebaseapp.com",
@@ -50,7 +53,7 @@ class List extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { fetching: true, recipes: [], favorites: [] };
+    this.state = { fetching: true, recipes: [], favorites: [], calories:'', diet:'', excluded:''};
   }
 
   componentDidMount() {
@@ -69,26 +72,46 @@ class List extends React.Component {
       this.setState({ favorites: ids });
     });
 
-    fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=${query}`,
-      {
-        headers: {
-          'X-Mashape-Key': '6aGSnelJ44mshYgdX2miZaUN8OAip1Vq2ZDjsnlrc9irpPowAd',
-          'Accept': 'application/json'
+    let config = firebaseCredentials.default;
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+    //if (uid)
+    //{
+      let firebaseRef = firebase.database().ref(uid + "/profile");
+      firebaseRef.once("value").then((snapshot) => {
+        console.log(snapshot.val());
+        if (snapshot.val())
+        {
+        this.setState({
+          calories: snapshot.val().calories,
+          diet: snapshot.val().diet,
+          excluded: snapshot.val().excluded
+        })
         }
-      }
-    ).then((data) => {
-      return data.json();
-    }).then((data) => {
-      let recipes = data.results.map((recipe, index) => {
-        this.state.favorites.forEach((favorite) => {
-          if (favorite.id === recipe.id) {
-            recipe.key = favorite.key;
+      })
+      console.log(this.state.excluded+" and "+this.state.diet);
+      fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=${query}&diet=${this.state.diet}&excludeIngredients=${this.state.excluded}`,
+        {
+          headers: {
+            'X-Mashape-Key': '6aGSnelJ44mshYgdX2miZaUN8OAip1Vq2ZDjsnlrc9irpPowAd',
+            'Accept': 'application/json'
           }
+        }
+      ).then((data) => {
+        return data.json();
+      }).then((data) => {
+        let recipes = data.results.map((recipe, index) => {
+          this.state.favorites.forEach((favorite) => {
+            if (favorite.id === recipe.id) {
+              recipe.key = favorite.key;
+            }
+          });
+          return <RecipeCard key={index} recipe={recipe} onClick={() => redirect(recipe)}/>
         });
-        return <RecipeCard key={index} recipe={recipe} onClick={() => redirect(recipe)}/>
+        this.setState({ recipes, fetching: false });
       });
-      this.setState({ recipes, fetching: false });
-    });
+    //}
   }
 
   render() {
@@ -104,7 +127,7 @@ class List extends React.Component {
       </div>
     );
   }
-  
+
 }
 
 export default List;
