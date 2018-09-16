@@ -69,8 +69,15 @@ class List extends React.Component {
       this.setState({ favorites: ids });
     });
 
-    new Promise((resolve, reject) => {
-      setInterval(() => resolve(exampleResults), 1500);
+    fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=${query}`,
+      {
+        headers: {
+          'X-Mashape-Key': '6aGSnelJ44mshYgdX2miZaUN8OAip1Vq2ZDjsnlrc9irpPowAd',
+          'Accept': 'application/json'
+        }
+      }
+    ).then((data) => {
+      return data.json();
     }).then((data) => {
       let recipes = data.results.map((recipe, index) => {
         this.state.favorites.forEach((favorite) => {
