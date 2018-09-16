@@ -25,7 +25,7 @@ const getEquipment = (recipe) => {
 };
 const getSteps = (recipe) => {
   let steps = recipe.analyzedInstructions[0].steps;
-  return steps.map((step, index) => <div key={index}><h4>Step {step.number}:</h4> {step.step}</div>);
+  return steps.map((step, index) => <div key={index}><h2>Step {step.number}:</h2> {step.step}</div>);
 };
 
 const container = {
@@ -33,6 +33,9 @@ const container = {
   margin: '30px auto 30px',
   textAlign: 'center',
   fontFamily: 'Helvetica'
+};
+const nameStyle = {
+  fontSize: '4 em'
 };
 const imgStyle = {
   border: `solid 2px ${STYLE_CONSTS.COLORS.WHITE}`,
@@ -98,12 +101,12 @@ class Recipe extends React.Component {
         <div style={container}>
           <img style={imgStyle} src={img} />
           <div style={dataSection}>
-            <Clock />{time} minutes<br />
-            <DollarSign />{price}<br />
-            <User />{people} people<br />
+            <Clock />{`\t`}{time} minutes<br />
+            <DollarSign />{`\t`}{price}<br />
+            <User />{`\t`}{people} people<br />
           </div>
           <div style={titleSection}>
-            <h2><u>{name}</u></h2>
+            <h1 style={nameStyle}><u>{name}</u></h1>
             <p>Ingredients: <i>{ingredients}</i></p>
             <p>Equipment: <i>{equipment}</i></p>
           </div>
