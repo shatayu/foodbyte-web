@@ -1,7 +1,7 @@
 import React from 'react';
 import queryString from '../lib/querystring';
 import STYLE_CONSTS from '../style';
-import { Clock, DollarSign, User } from 'react-feather';
+import { Clock, DollarSign, User, Zap } from 'react-feather';
 import RecipeCard from '../components/RecipeCard';
 
 let firebase = require('firebase/app');
@@ -198,7 +198,7 @@ class Recipe extends React.Component {
       name: queryString.parse(this.props.location.search).name,
       id: queryString.parse(this.props.location.search).id
     }, () => {
-      fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${this.state.id}/information?includeNutrition=false`, {
+      fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${this.state.id}/information?includeNutrition=true`, {
         headers: {
           'X-Mashape-Key': require('../config.json').apiKey,
           'Accept': 'application/json'
@@ -216,7 +216,8 @@ class Recipe extends React.Component {
           equipment,
           steps,
           img: data.image,
-          people: data.servings
+          people: data.servings,
+          calories: Math.round(data.nutrition.nutrients[0].amount)
         });
         this.suggestions();
       });
@@ -225,7 +226,7 @@ class Recipe extends React.Component {
   }
 
   render() {
-    let { name, time, fetching, equipment, ingredients, steps, img, price, people } = this.state;
+    let { name, time, fetching, equipment, ingredients, steps, img, price, people, calories } = this.state;
     if (!fetching) {
       return (
         <div style={container}>
@@ -233,6 +234,7 @@ class Recipe extends React.Component {
           <div style={dataSection}>
             <Clock />{`\t`}{time} minutes<br />
             <User />{`\t`}{people} people<br />
+            <Zap />{`\t`}{calories} calories<br />
           </div>
           <div style={titleSection}>
             <h1 style={nameStyle}><u>{name}</u></h1>
