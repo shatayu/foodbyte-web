@@ -96,24 +96,38 @@ class RecipeCard extends React.Component{
       });
       let uid = localStorage.getItem("uid");
 
-      let firebaseObject = {
-        id: recipe.id,
-        image: recipe.image,
-        readyInMinutes: recipe.readyInMinutes,
-        title: recipe.title,
-        timestamp: Date.now()
-      }
-
       // store data Firebase
       if (this.state.key=='')
       {
         this.setState({
           key:firebase.database().ref().child('recipes').push().key
         }, () => {
+          let firebaseObject = {
+            id: recipe.id,
+            image: recipe.image,
+            readyInMinutes: recipe.readyInMinutes,
+            title: recipe.title,
+            timestamp: Date.now(),
+            key: this.state.key
+          }
           let updates = {};
           updates[uid + '/favorites/' + this.state.key] = firebaseObject;
           firebase.database().ref().update(updates)
         });
+      }
+      else
+      {
+        let firebaseObject = {
+          id: recipe.id,
+          image: recipe.image,
+          readyInMinutes: recipe.readyInMinutes,
+          title: recipe.title,
+          timestamp: Date.now(),
+          key: this.state.key
+        }
+        let updates = {};
+        updates[uid + '/favorites/' + this.state.key] = firebaseObject;
+        firebase.database().ref().update(updates)
       }
     } else {
       this.setState({
@@ -122,6 +136,12 @@ class RecipeCard extends React.Component{
       let updates = {};
       updates[localStorage.getItem('uid') + '/favorites/' + this.state.key] = {};
       firebase.database().ref().update(updates);
+    }
+  }
+  componentDidMount() {
+    let { recipe } = this.props;
+    if (recipe.key) {
+      this.setState({ key: recipe.key, favClicked: true });
     }
   }
   render(){
