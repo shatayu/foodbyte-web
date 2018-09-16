@@ -8,7 +8,7 @@ class Profile extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { diet: '', calories: 0 };
+    this.state = { diet: '', calories: 0, excluded: '' };
   }
 
   componentDidMount() {
@@ -49,6 +49,13 @@ class Profile extends React.Component {
               calories: e.target.value
             })}
             />
+        </div>
+        <div>
+          Excluded Items<br />
+          <input
+            type='text'
+            value={this.state.excluded}
+            onChange={(e) => this.setState({ excluded: e.target.value })} />
         </div>
       </div>
     );
