@@ -1,5 +1,5 @@
 import React from 'react';
-import queryString from 'query-string';
+import queryString from '../lib/querystring';
 import StatusMessage from '../components/StatusMessage.jsx';
 import RecipeCard from '../components/RecipeCard';
 
