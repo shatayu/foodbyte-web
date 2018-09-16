@@ -53,27 +53,27 @@ class MenuBar extends React.Component {
         right: '25px'
       }}>
         <Link to='/favorites'>
-          <Star size={50}
-            onMouseEnter={this.starEnter.bind(this)} 
-            onMouseLeave={this.starLeave.bind(this)} 
+          <Star size={45}
+            onMouseEnter={this.starEnter.bind(this)}
+            onMouseLeave={this.starLeave.bind(this)}
             color={starColor} style={margin} />
         </Link>
         <Link to='/recommended'>
-          <Sun size={50} 
-            onMouseEnter={this.bookEnter.bind(this)} 
-            onMouseLeave={this.bookLeave.bind(this)} 
+          <Sun size={45}
+            onMouseEnter={this.bookEnter.bind(this)}
+            onMouseLeave={this.bookLeave.bind(this)}
             color={bookColor} style={margin} />
         </Link>
         <Link to='/profile'>
-          <User size={50}
+          <User size={45}
               onMouseEnter={this.userEnter.bind(this)}
               onMouseLeave={this.userLeave.bind(this)}
               color={userColor} style={margin} />
         </Link>
         <Link to='/'>
-          <Home size={50} 
-            onMouseEnter={this.homeEnter.bind(this)} 
-            onMouseLeave={this.homeLeave.bind(this)} 
+          <Home size={45}
+            onMouseEnter={this.homeEnter.bind(this)}
+            onMouseLeave={this.homeLeave.bind(this)}
             color={homeColor} style={margin} />
         </Link>
       </div>
