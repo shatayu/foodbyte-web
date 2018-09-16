@@ -1,7 +1,8 @@
 import React from 'react';
 import {Star} from 'react-feather';
 import STYLE_CONSTS from '../style.js';
-
+let firebase = require('firebase/app');
+require('firebase/database');
 
 const cardDimension = 350;
 const mainCard = {
@@ -82,17 +83,43 @@ class RecipeCard extends React.Component{
 
   state={
     favClicked: false,
+    key: ''
   };
   handleFavClick () {
+    let {
+      recipe
+    }=this.props;
     if (this.state.favClicked==false)
     {
       this.setState({
         favClicked:true,
       });
+      let uid = localStorage.getItem("uid");
+
+      let firebaseObject = {
+        id: recipe.id,
+        image: recipe.image,
+        readyInMinutes: recipe.readyInMinutes,
+        title: recipe.title,
+        timestamp: Date.now()
+      }
+
+      // store data Firebase
+      if (this.state.key=='')
+      {
+        this.setState({
+          key:firebase.database().ref().child('recipes').push().key
+        });
+      }
+      let updates = {};
+      updates[uid + '/favorites/' + this.state.key] = firebaseObject;
+
+      firebase.database().ref().update(updates)
     } else {
       this.setState({
         favClicked:false,
       });
+      this.props.removeItem(this.state.key);
     }
   }
   render(){
