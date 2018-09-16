@@ -92,7 +92,7 @@ class MealPlan extends React.Component {
           fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/mealplans/generate?diet=${profileValue.diet}&exclude=${profileValue.excluded}&targetCalories=${profileValue.calories}&timeFrame=day`,
           {
             headers: {
-              'X-Mashape-Key': '6aGSnelJ44mshYgdX2miZaUN8OAip1Vq2ZDjsnlrc9irpPowAd',
+              'X-Mashape-Key': require('../config.json').apiKey,
               'Accept': 'application/json'
             }
           }).then((data) => {

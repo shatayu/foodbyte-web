@@ -171,7 +171,7 @@ class Recipe extends React.Component {
 
     let similarDishPromises = fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${this.state.id}/similar`, {
       headers: {
-        'X-Mashape-Key': '6aGSnelJ44mshYgdX2miZaUN8OAip1Vq2ZDjsnlrc9irpPowAd',
+        'X-Mashape-Key': require('../config.json').apiKey,
         'Accept': 'application/json'
       }
     }).then((data) => {
@@ -200,7 +200,7 @@ class Recipe extends React.Component {
     }, () => {
       fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${this.state.id}/information?includeNutrition=false`, {
         headers: {
-          'X-Mashape-Key': '6aGSnelJ44mshYgdX2miZaUN8OAip1Vq2ZDjsnlrc9irpPowAd',
+          'X-Mashape-Key': require('../config.json').apiKey,
           'Accept': 'application/json'
         }
       }).then((data) => {
