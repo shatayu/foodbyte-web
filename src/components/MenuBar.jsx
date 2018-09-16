@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Sun, Star } from 'react-feather';
+import { Home, Sun, Star, User } from 'react-feather';
 import STYLE_CONSTS from '../style';
 
 const margin = {
@@ -12,7 +12,8 @@ class MenuBar extends React.Component {
   state = {
     starColor: STYLE_CONSTS.COLORS.YELLOW,
     bookColor: STYLE_CONSTS.COLORS.YELLOW,
-    homeColor: STYLE_CONSTS.COLORS.YELLOW
+    homeColor: STYLE_CONSTS.COLORS.YELLOW,
+    userColor: STYLE_CONSTS.COLORS.YELLOW
   };
 
   starEnter() {
@@ -32,13 +33,19 @@ class MenuBar extends React.Component {
   homeEnter() {
     this.setState({ homeColor: STYLE_CONSTS.COLORS.WHITE });
   }
-
   homeLeave() {
     this.setState({ homeColor: STYLE_CONSTS.COLORS.YELLOW });
   }
 
+  userEnter() {
+    this.setState({ userColor: STYLE_CONSTS.COLORS.WHITE });
+  }
+  userLeave() {
+    this.setState({ userColor: STYLE_CONSTS.COLORS.YELLOW });
+  }
+
   render() {
-    let { starColor, bookColor, homeColor } = this.state;
+    let { starColor, bookColor, homeColor, userColor } = this.state;
     return (
       <div style={{
         position: 'absolute',
@@ -56,6 +63,12 @@ class MenuBar extends React.Component {
             onMouseEnter={this.bookEnter.bind(this)} 
             onMouseLeave={this.bookLeave.bind(this)} 
             color={bookColor} style={margin} />
+        </Link>
+        <Link to='/profile'>
+          <User size={50}
+              onMouseEnter={this.userEnter.bind(this)}
+              onMouseLeave={this.userLeave.bind(this)}
+              color={userColor} style={margin} />
         </Link>
         <Link to='/'>
           <Home size={50} 

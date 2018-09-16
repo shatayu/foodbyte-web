@@ -18,6 +18,7 @@ const App = () => {
           <Route component={routes.Recipe} exact path='/recipe' />
           <Route component={routes.Recommended} exact path='/recommended' />
           <Route component={routes.Favorites} exact path='/favorites' />
+          <Route component={routes.Profile} exact path='/profile' />
         </Switch>
       </div>
     </BrowserRouter>

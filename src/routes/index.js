@@ -4,6 +4,7 @@ import Recipe from './Recipe.jsx';
 import Search from './Search.jsx';  
 import Favorites from './Favorites.jsx';
 import Recommended from './Recommended.jsx';
+import Profile from './Profile.jsx';
 
 const routes = {
   List,
@@ -11,6 +12,7 @@ const routes = {
   Recipe,
   Search,
   Favorites,
-  Recommended
+  Recommended,
+  Profile
 };
 export default routes;
