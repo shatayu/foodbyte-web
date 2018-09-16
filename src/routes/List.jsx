@@ -94,7 +94,7 @@ class List extends React.Component {
       fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=${query}&diet=${this.state.diet}&excludeIngredients=${this.state.excluded}`,
         {
           headers: {
-            'X-Mashape-Key': '6aGSnelJ44mshYgdX2miZaUN8OAip1Vq2ZDjsnlrc9irpPowAd',
+            'X-Mashape-Key': require('../config.json').apiKey,
             'Accept': 'application/json'
           }
         }
