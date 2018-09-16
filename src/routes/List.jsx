@@ -73,6 +73,11 @@ class List extends React.Component {
       setInterval(() => resolve(exampleResults), 1500);
     }).then((data) => {
       let recipes = data.results.map((recipe, index) => {
+        this.state.favorites.forEach((favorite) => {
+          if (favorite.id == recipe.id) {
+            recipe.key = favorite.key;
+          }
+        });
         return <RecipeCard key={index} recipe={recipe} onClick={() => redirect(recipe)}/>
       });
       this.setState({ recipes, fetching: false });
