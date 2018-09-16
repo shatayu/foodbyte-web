@@ -1,8 +1,25 @@
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
+import STYLE_CONSTS from '../style.js';
 
-const style = {
-};
+const profileStyling= {
+ fontSize: '80px',
+ fontFamily: 'helvetica',
+ color: STYLE_CONSTS.COLORS.YELLOW
+}
+
+const dietStyling= {
+  fontSize: '30px',
+  fontFamily: 'helvetica',
+  color: STYLE_CONSTS.COLORS.YELLOW
+}
+
+
+const categoryStyling= {
+  fontSize: '30px',
+  fontFamily: 'helvetica',
+  color: STYLE_CONSTS.COLORS.YELLOW
+}
 
 class Profile extends React.Component {
 
@@ -18,9 +35,9 @@ class Profile extends React.Component {
   render() {
     return (
       <form onSubmit={this.saveConfig.bind(this)}>
-        Profile
+        <span style={profileStyling}>Profile</span>
         <div>
-          Diet<br/>
+          <span style={dietStyling}>Diet</span><br/>
           <Autocomplete
             getItemValue={(item) => item}
             items={[
@@ -42,7 +59,7 @@ class Profile extends React.Component {
               />
         </div>
         <div>
-          Target Calories<br />
+          <span style={categoryStyling}>Target Calories</span><br/>
           <input
             type='text'
             value={this.state.calories}
@@ -52,7 +69,7 @@ class Profile extends React.Component {
             />
         </div>
         <div>
-          Excluded Items<br />
+          <span style={categoryStyling}>Excluded Items</span><br/>
           <input
             type='text'
             value={this.state.excluded}
