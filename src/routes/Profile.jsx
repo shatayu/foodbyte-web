@@ -2,6 +2,18 @@ import React from 'react';
 import Autocomplete from 'react-autocomplete';
 import STYLE_CONSTS from '../style.js';
 
+let firebase = require('firebase/app');
+require('firebase/database');
+
+let firebaseCredentials = require('../firebaseCredentials');
+const submitToFirebase = (firebaseObject) => {
+  // store recipe and timestamp in firebase
+  let uid = localStorage.getItem("uid");
+  console.log(firebaseObject);
+  // store data Firebase
+  firebase.database().ref(uid + '/profile/').set(firebaseObject);
+};
+
 const profileStyling= {
  fontSize: '80px',
  fontFamily: 'helvetica',
@@ -30,6 +42,8 @@ class Profile extends React.Component {
 
   saveConfig(e) {
     e.preventDefault();
+    submitToFirebase(this.state);
+
   }
 
   render() {
