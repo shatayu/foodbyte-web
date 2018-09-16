@@ -31,7 +31,7 @@ const redirect = (recipe) => {
   let key = firebase.database().ref().child('recipes').push().key;
 
   let updates = {};
-  updates[uid + '/favorites/' + key] = firebaseObject;
+  updates[uid + '/history/' + key] = firebaseObject;
 
   firebase.database().ref().update(updates).then(() => {
     // redirect user
@@ -74,7 +74,7 @@ class Favorites extends React.Component {
       let recipes = [];
       if (firebaseFavorites) {
         Object.keys(firebaseFavorites).forEach((key, index) => {
-          //console.log(firebaseHistory[key]);
+          firebaseFavorites[key].key = key;
           recipes.push(<RecipeCard key={index} recipe={firebaseFavorites[key]} onClick={() => redirect(firebaseFavorites[key])}/>)
         });
         recipes = recipes.reverse();

@@ -89,8 +89,10 @@ class RecipeCard extends React.Component{
     let {
       recipe
     }=this.props;
+    console.log('fav clicked');
     if (this.state.favClicked === false)
     {
+      console.log('adding fav');
       this.setState({
         favClicked:true,
       });
@@ -130,6 +132,7 @@ class RecipeCard extends React.Component{
         firebase.database().ref().update(updates)
       }
     } else {
+      console.log('removing fav');
       this.setState({
         favClicked:false,
       });
@@ -159,6 +162,7 @@ class RecipeCard extends React.Component{
     //       </div>
     //   </div>
     // );
+    let stars = document.getElementsByClassName('star');
     return (
       <div style={mainCard}>
         {/* <div style={outerContainer}>
@@ -172,6 +176,7 @@ class RecipeCard extends React.Component{
         </div> */}
         <div style={cardComponent}>
           <Star
+            className='star'
             size={20}
             style={starPos}
             onClick={this.handleFavClick.bind(this)}
