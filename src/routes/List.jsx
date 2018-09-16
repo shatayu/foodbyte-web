@@ -50,17 +50,31 @@ class List extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { fetching: true, recipes: [] };
+    this.state = { fetching: true, recipes: [], favorites: [] };
   }
 
   componentDidMount() {
     let { query } = queryString.parse(this.props.location.search);
+
+    let uid = localStorage.getItem('uid');
+    let favorites = firebase.database().ref(uid + '/favorites');
+    favorites.on('value', (snapshot) => {
+      let firebaseFavorites = snapshot.val();
+      let ids = [];
+      if (firebaseFavorites) {
+        Object.keys(firebaseFavorites).forEach((key, index) => {
+          ids.push({ id: firebaseFavorites[key].id, key });
+        });
+      }
+      this.setState({ favorites: ids });
+    });
+
     new Promise((resolve, reject) => {
       setInterval(() => resolve(exampleResults), 1500);
     }).then((data) => {
-      let recipes = data.results.map((recipe, index) => (
-        <RecipeCard key={index} recipe={recipe} onClick={() => redirect(recipe)}/>
-      ));
+      let recipes = data.results.map((recipe, index) => {
+        return <RecipeCard key={index} recipe={recipe} onClick={() => redirect(recipe)}/>
+      });
       this.setState({ recipes, fetching: false });
     });
   }
