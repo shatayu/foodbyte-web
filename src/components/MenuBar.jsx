@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Sun, Star, User } from 'react-feather';
+import { Home, Book, Star, User } from 'react-feather';
 import STYLE_CONSTS from '../style';
 
 const margin = {
@@ -58,8 +58,8 @@ class MenuBar extends React.Component {
             onMouseLeave={this.starLeave.bind(this)}
             color={starColor} style={margin} />
         </Link>
-        <Link to='/recommended'>
-          <Sun size={45}
+        <Link to='/mealplan'>
+          <Book size={45}
             onMouseEnter={this.bookEnter.bind(this)}
             onMouseLeave={this.bookLeave.bind(this)}
             color={bookColor} style={margin} />

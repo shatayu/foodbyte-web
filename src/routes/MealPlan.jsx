@@ -47,7 +47,7 @@ const redirect = (recipe) => {
 
 };
 
-class Recommended extends React.Component {
+class MealPlan extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -148,4 +148,4 @@ class Recommended extends React.Component {
   }
 
 }
-export default Recommended;
+export default MealPlan;
