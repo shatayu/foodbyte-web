@@ -1,7 +1,9 @@
 import React from 'react';
+import {Star} from 'react-feather';
+import STYLE_CONSTS from '../style.js';
+
 
 const cardDimension = 350;
-
 const mainCard = {
   width: cardDimension + 'px',
   height: cardDimension + 'px',
@@ -50,6 +52,12 @@ const centeringContainer = {
   width: '75%'
 }
 
+const starPos ={
+  position: 'absolute',
+  top: '5%',
+  right: '3%'
+}
+
 const img = {
   maxHeight: '150px',
   marginTop: '30px'
@@ -70,43 +78,68 @@ const time = {
   left: '50%',
   transform: 'translateX(-50%)'
 }
+class RecipeCard extends React.Component{
 
-const RecipeCard = ({ recipe, onClick }) => {
-  // return (
-  //   <div style={mainCard} onClick={onClick}>
-  //     <div style={imgwrapper}>
-  //       <img style={img} src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} /><br />
-  //     </div>
-  //     <div class='text'>
-  //       <div class='title'>Sample title</div><br />
-  //       <div class='time'>25 minutes</div>
-  //       </div>
-  //   </div>
-  // );
-
-  return (
-    <div style={mainCard} onClick={onClick}>
-      {/* <div style={outerContainer}>
-      <div style={innerContainer}>
-        <img src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} style={img}></img>
-        <div style={text}>
-          <span style={name}>SAMPLE TITLE THAT IS REALLY LONG </span> 
-          <p style={time}>25 minutes</p> 
-        </div>
-      </div>
-      </div> */}
-      <div style={cardComponent}>
-        <div style={centeringContainer}>
+  state={
+    favClicked: false,
+  };
+  handleFavClick () {
+    if (this.state.favClicked==false)
+    {
+      this.setState({
+        favClicked:true,
+      });
+    } else {
+      this.setState({
+        favClicked:false,
+      });
+    }
+  }
+  render(){
+    let {recipe,
+      onClick
+    }=this.props;
+    // return (
+    //   <div style={mainCard} onClick={onClick}>
+    //     <div style={imgwrapper}>
+    //       <img style={img} src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} /><br />
+    //     </div>
+    //     <div class='text'>
+    //       <div class='title'>Sample title</div><br />
+    //       <div class='time'>25 minutes</div>
+    //       </div>
+    //   </div>
+    // );
+    return (
+      <div style={mainCard}>
+        {/* <div style={outerContainer}>
+        <div style={innerContainer}>
           <img src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} style={img}></img>
+          <div style={text}>
+            <span style={name}>SAMPLE TITLE THAT IS REALLY LONG </span>
+            <p style={time}>25 minutes</p>
+          </div>
+        </div>
+        </div> */}
+        <div style={cardComponent}>
+          <Star
+            size={20}
+            style={starPos}
+            onClick={this.handleFavClick.bind(this)}
+            fill={this.state.favClicked?STYLE_CONSTS.COLORS.YELLOW:'white'}
+          />
+        <div style={centeringContainer} onClick={onClick}>
+            <img src={`https://webknox.com/recipeImages/${recipe.id}-556x370.jpg`} style={img}></img>
+          </div>
+        </div>
+        <div style={cardComponent}>
+          <div style={centeringContainer} onClick={onClick}>
+            <span style={name}>SAMPLE TITLE THAT IS REALLY LONG MEME MEME MEME  </span>
+          </div>
+          <p style={time}>25 minutes</p>
         </div>
       </div>
-      <div style={cardComponent}>
-        <div style={centeringContainer}>
-          <span style={name}>SAMPLE TITLE THAT IS REALLY LONG MEME MEME MEME  </span> 
-        </div>
-        <p style={time}>25 minutes</p> 
-      </div>
-    </div>
-  )
-};
+    )
+  };
+}
 export default RecipeCard;
