@@ -11,12 +11,13 @@ class Profile extends React.Component {
     this.state = { diet: '', calories: 0, excluded: '' };
   }
 
-  componentDidMount() {
+  saveConfig(e) {
+    e.preventDefault();
   }
 
   render() {
     return (
-      <div>
+      <form onSubmit={this.saveConfig.bind(this)}>
         Profile
         <div>
           Diet<br/>
@@ -57,7 +58,8 @@ class Profile extends React.Component {
             value={this.state.excluded}
             onChange={(e) => this.setState({ excluded: e.target.value })} />
         </div>
-      </div>
+        <button type='submit'>Submit</button>
+      </form>
     );
   }
 
