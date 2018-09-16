@@ -35,22 +35,14 @@ const redirect = (recipe) => {
 class History extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { fetching: true, recipes: [] };
+    this.state = { 
+      fetching: true, 
+      recipes: [],
+      markedForDeletion: false
+    };
   };
 
   componentDidMount() {
-    // let { query } = queryString.parse(this.props.location.search);
-    // new Promise((resolve, reject) => {
-    //   setInterval(() => resolve(""), 1500);
-    // }).then((data) => {
-    //   // let recipes = data.results.map((recipe, index) => (
-    //   //   // <RecipeCard key={index} recipe={recipe} onClick={() => redirect(recipe)}/>
-    //   // ));
-    //   let recipes = [];
-    //   this.setState({ recipes, fetching: false });
-    // });
-
-
     let config = firebaseCredentials.default;
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
@@ -76,12 +68,6 @@ class History extends React.Component {
       }
 
     })
-
-    // let data; // firebase data
-    // let recipes = data.results.map((recipe, index) => (
-    //   <RecipeCard key={index} recipe={recipe} onClick={() => redirect(recipe)}/>
-    // ));
-    // this.setState({ recipes, fetching: false });
   }
 
   render() {
