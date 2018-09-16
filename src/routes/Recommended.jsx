@@ -1,6 +1,6 @@
 import React from 'react';
 import StatusMessage from '../components/StatusMessage.jsx';
-import RecipeCard from '../components/RecipeCard.jsx';
+import RecipeCard from '../components/RecipeCard';
 
 let firebase = require('firebase/app');
 require('firebase/database');
@@ -32,7 +32,7 @@ const redirect = (recipe) => {
 
 };
 
-class History extends React.Component {
+class Recommended extends React.Component {
   constructor(props) {
     super(props);
     this.state = { fetching: true, recipes: [] };
@@ -99,4 +99,4 @@ class History extends React.Component {
   }
 
 }
-export default History;
+export default Recommended;
