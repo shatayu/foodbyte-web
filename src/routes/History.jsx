@@ -25,11 +25,11 @@ const redirect = (recipe) => {
   let updates = {};
   updates[uid + '/history/' + key] = firebaseObject;
 
-  firebase.database().ref().update(updates);
-  
+  firebase.database().ref().update(updates).then(() => {
+    // redirect user
+    window.location.href = `/recipe?id=${recipe.id}&name=${recipe.title}`;
+  });
 
-  // redirect user
-  window.location.href = `/recipe?id=${recipe.id}&name=${recipe.title}`;
 };
 
 class History extends React.Component {
