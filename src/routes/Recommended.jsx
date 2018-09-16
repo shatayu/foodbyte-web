@@ -1,9 +1,24 @@
 import React from 'react';
 import StatusMessage from '../components/StatusMessage.jsx';
 import RecipeCard from '../components/RecipeCard';
+import STYLE_CONSTS from '../style';
 
 let firebase = require('firebase/app');
 require('firebase/database');
+
+let COLORS = STYLE_CONSTS.COLORS;
+const button = {
+  width: "500px",
+  height: "80px",
+  backgroundColor: COLORS.PINK,
+
+  borderRadius: "35px",
+  border: "10px solid " + COLORS.YELLOW,
+
+  color: COLORS.YELLOW,
+  fontSize: "30px"
+};
+
 
 let firebaseCredentials = require('../firebaseCredentials');
 
@@ -110,7 +125,23 @@ class Recommended extends React.Component {
         <div>
           {fetching ? '' : recipes.length > 0 ? recipes : 'No profile to generate a meal plan' }
           <br />
-          { recipes.length > 0 ? <button onClick={this.generateMealPlan.bind(this)}>Generate New Meal Plan</button> : '' }
+          { recipes.length > 0 ? 
+            <button id='submit' type='submit' style={button}           
+            onMouseEnter={() => {
+              let button = document.getElementById("submit");
+              button.style.borderColor = COLORS.WHITE,
+                button.style.color = COLORS.WHITE
+            }}
+            onMouseLeave={() => {
+              let button = document.getElementById("submit");
+              button.style.borderColor = COLORS.YELLOW,
+                button.style.color = COLORS.YELLOW
+            }}
+            onClick={this.generateMealPlan.bind(this)}
+          >
+            GENERATE NEW MEAL PLAN
+          </button>
+            : '' }
         </div>
       </div>
     );
