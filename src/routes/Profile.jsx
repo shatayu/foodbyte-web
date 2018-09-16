@@ -46,7 +46,7 @@ class Profile extends React.Component {
             type='text'
             value={this.state.calories}
             onChange={(e) => this.setState({
-              calories: parseInt(e.target.value) ? parseInt(e.target.value) : this.state.calories
+              calories: e.target.value
             })}
             />
         </div>
