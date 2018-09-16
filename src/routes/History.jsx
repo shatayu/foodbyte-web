@@ -1,20 +1,12 @@
 import React from 'react';
 import StatusMessage from '../components/StatusMessage.jsx';
 import RecipeCard from '../components/RecipeCard.jsx';
-import STYLE_CONSTS from '../style.js';
 
-const favoritesStyling= {
- position: 'absolute',
- top: '50%',
- left: '28%',
- fontSize: '80px',
- fontFamily: 'helvetica',
- color: STYLE_CONSTS.COLORS.YELLOW
-}
 let firebase = require('firebase/app');
 require('firebase/database');
 
 let firebaseCredentials = require('../firebaseCredentials');
+
 const redirect = (recipe) => {
   // store recipe and timestamp in firebase
   let uid = localStorage.getItem("uid");
@@ -31,7 +23,7 @@ const redirect = (recipe) => {
   let key = firebase.database().ref().child('recipes').push().key;
 
   let updates = {};
-  updates[uid + '/favorites/' + key] = firebaseObject;
+  updates[uid + '/history/' + key] = firebaseObject;
 
   firebase.database().ref().update(updates).then(() => {
     // redirect user
@@ -40,7 +32,7 @@ const redirect = (recipe) => {
 
 };
 
-class Favorites extends React.Component {
+class History extends React.Component {
   constructor(props) {
     super(props);
     this.state = { fetching: true, recipes: [] };
@@ -66,16 +58,16 @@ class Favorites extends React.Component {
 
     let uid = localStorage.getItem("uid");
 
-    let favorites= firebase.database().ref(uid + "/favorites");
-    favorites.on('value', (snapshot) => {
-      let firebaseFavorites = snapshot.val();
+    let history = firebase.database().ref(uid + "/history");
+    history.on('value', (snapshot) => {
+      let firebaseHistory = snapshot.val();
 
       // store cards in state, render them
       let recipes = [];
-      if (firebaseFavorites) {
-        Object.keys(firebaseFavorites).forEach((key, index) => {
+      if (firebaseHistory) {
+        Object.keys(firebaseHistory).forEach((key, index) => {
           //console.log(firebaseHistory[key]);
-          recipes.push(<RecipeCard key={index} recipe={firebaseFavorites[key]} onClick={() => redirect(firebaseFavorites[key])}/>)
+          recipes.push(<RecipeCard key={index} recipe={firebaseHistory[key]} onClick={() => redirect(firebaseHistory[key])}/>)
         });
         recipes = recipes.reverse();
         this.setState({ recipes, fetching: false });
@@ -100,10 +92,11 @@ class Favorites extends React.Component {
       }}>
         <StatusMessage status={fetching} />
         <div>
-          {fetching ? '' : recipes.length > 0 ? recipes : <span style={favoritesStyling}>No favorites to display</span> }
+          {fetching ? '' : recipes.length > 0 ? recipes : 'No history to display' }
         </div>
       </div>
     );
   }
+
 }
-export default Favorites;
+export default History;

@@ -183,9 +183,9 @@ class RecipeCard extends React.Component{
         </div>
         <div style={cardComponent}>
           <div style={centeringContainer} onClick={onClick}>
-            <span style={name}>SAMPLE TITLE THAT IS REALLY LONG MEME MEME MEME  </span>
+            <span style={name}>{recipe.title}</span>
           </div>
-          <p style={time}>25 minutes</p>
+          <p style={time}>{recipe.readyInMinutes} minutes</p>
         </div>
       </div>
     )
