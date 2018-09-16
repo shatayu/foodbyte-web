@@ -89,7 +89,7 @@ class RecipeCard extends React.Component{
     let {
       recipe
     }=this.props;
-    if (this.state.favClicked==false)
+    if (this.state.favClicked === false)
     {
       this.setState({
         favClicked:true,
@@ -97,7 +97,7 @@ class RecipeCard extends React.Component{
       let uid = localStorage.getItem("uid");
 
       // store data Firebase
-      if (this.state.key=='')
+      if (this.state.key === '')
       {
         this.setState({
           key:firebase.database().ref().child('recipes').push().key

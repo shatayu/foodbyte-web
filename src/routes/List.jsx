@@ -74,7 +74,7 @@ class List extends React.Component {
     }).then((data) => {
       let recipes = data.results.map((recipe, index) => {
         this.state.favorites.forEach((favorite) => {
-          if (favorite.id == recipe.id) {
+          if (favorite.id === recipe.id) {
             recipe.key = favorite.key;
           }
         });
