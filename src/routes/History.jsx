@@ -64,12 +64,16 @@ class History extends React.Component {
 
       // store cards in state, render them
       let recipes = [];
-      Object.keys(firebaseHistory).forEach((key, index) => {
-        //console.log(firebaseHistory[key]);
-        recipes.push(<RecipeCard key={index} recipe={firebaseHistory[key]} onClick={() => redirect(firebaseHistory[key])}/>)
-      });
-      recipes = recipes.reverse();
-      this.setState({ recipes, fetching: false });
+      if (firebaseHistory) {
+        Object.keys(firebaseHistory).forEach((key, index) => {
+          //console.log(firebaseHistory[key]);
+          recipes.push(<RecipeCard key={index} recipe={firebaseHistory[key]} onClick={() => redirect(firebaseHistory[key])}/>)
+        });
+        recipes = recipes.reverse();
+        this.setState({ recipes, fetching: false });
+      } else {
+        this.setState({ fetching: false, recipes: [] })
+      }
 
     })
 
@@ -88,7 +92,7 @@ class History extends React.Component {
       }}>
         <StatusMessage status={fetching} />
         <div>
-          {recipes}
+          {fetching ? '' : recipes.length > 0 ? recipes : 'No history to display' }
         </div>
       </div>
     );
