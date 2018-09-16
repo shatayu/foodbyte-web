@@ -1,5 +1,7 @@
 import React from 'react';
 import queryString from '../lib/querystring';
+import STYLE_CONSTS from '../style';
+import { Clock, DollarSign, User } from 'react-feather';
 
 const exampleRecipe = require('../exampleRecipe.json');
 
@@ -23,11 +25,32 @@ const getEquipment = (recipe) => {
 };
 const getSteps = (recipe) => {
   let steps = recipe.analyzedInstructions[0].steps;
-  return steps.map((step, index) => <p key={index}>Step {step.number}: {step.step}</p>);
+  return steps.map((step, index) => <div key={index}><h4>Step {step.number}:</h4> {step.step}</div>);
 };
-const getBlurb = (recipe) => {
-  return `This dish takes ${recipe.readyInMinutes} minutes to prepare
-    and costs approximately $${recipe.pricePerServing} and serves ${recipe.servings}!`;
+
+const container = {
+  width: '75%',
+  margin: '30px auto 30px',
+  textAlign: 'center',
+  fontFamily: 'Helvetica'
+};
+const imgStyle = {
+  border: `solid 2px ${STYLE_CONSTS.COLORS.WHITE}`,
+  borderRadius: '15px',
+  maxHeight: '300px'
+};
+const dataSection = {
+  position: 'absolute',
+  top: '125px',
+  right: '300px',
+  textAlign: 'left',
+  fontSize: '2em'
+};
+const titleSection = {
+  textAlign: 'left'
+};
+const stepsSection = {
+  textAlign: 'left'
 };
 
 class Recipe extends React.Component {
@@ -39,8 +62,10 @@ class Recipe extends React.Component {
       ingredients: '',
       equipment: '',
       steps: [],
-      blurb: '',
+      time: 0,
+      price: 0,
       img: '',
+      people: 0,
       fetching: true
     };
   }
@@ -53,31 +78,42 @@ class Recipe extends React.Component {
       let ingredients = getIngredients(data);
       let equipment = getEquipment(data);
       let steps = getSteps(data);
-      let blurb = getBlurb(data);
-      this.setState({ fetching: false, blurb, ingredients, equipment, steps, img: data.image });
+      this.setState({
+        fetching: false,
+        time: data.readyInMinutes,
+        ingredients,
+        equipment,
+        steps,
+        img: data.image,
+        price: data.pricePerServing,
+        people: data.servings
+      });
     });
   }
 
   render() {
-    let { name, blurb, fetching, equipment, ingredients, steps, img } = this.state;
+    let { name, time, fetching, equipment, ingredients, steps, img, price, people } = this.state;
     if (!fetching) {
       return (
-        <div>
-          <h1>{name}</h1>
-          <sub>{blurb}</sub>
-          <div>
-            <p>
-              Ingredients: <i>{ingredients}</i><br/>
-              Equipment: <i>{equipment}</i>
-            </p>
+        <div style={container}>
+          <img style={imgStyle} src={img} />
+          <div style={dataSection}>
+            <Clock />{time} minutes<br />
+            <DollarSign />{price}<br />
+            <User />{people} people<br />
           </div>
-          <div>
+          <div style={titleSection}>
+            <h2><u>{name}</u></h2>
+            <p>Ingredients: <i>{ingredients}</i></p>
+            <p>Equipment: <i>{equipment}</i></p>
+          </div>
+          <div style={stepsSection}>
             {steps}
           </div>
         </div>
       );
     }
-    return <div><h1>{name}</h1></div>
+    return <div style={container}><h1>{name}</h1></div>
   }
 }
 
