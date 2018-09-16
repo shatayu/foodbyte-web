@@ -58,7 +58,7 @@ const imgStyle = {
 const dataSection = {
   position: 'absolute',
   top: '125px',
-  right: '300px',
+  left: '220px',
   textAlign: 'left',
   fontSize: '2em'
 };
