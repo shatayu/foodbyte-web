@@ -109,17 +109,19 @@ class RecipeCard extends React.Component{
       {
         this.setState({
           key:firebase.database().ref().child('recipes').push().key
+        }, () => {
+          let updates = {};
+          updates[uid + '/favorites/' + this.state.key] = firebaseObject;
+          firebase.database().ref().update(updates)
         });
       }
-      let updates = {};
-      updates[uid + '/favorites/' + this.state.key] = firebaseObject;
-
-      firebase.database().ref().update(updates)
     } else {
       this.setState({
         favClicked:false,
       });
-      this.props.removeItem(this.state.key);
+      let updates = {};
+      updates[localStorage.getItem('uid') + '/favorites/' + this.state.key] = {};
+      firebase.database().ref().update(updates);
     }
   }
   render(){
