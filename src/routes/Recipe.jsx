@@ -153,7 +153,7 @@ class Recipe extends React.Component {
             "argentinean-oak-planked-beef-tenderloin-with-chimichurri-sauce-2-144777.jpg",
             "argentinean_oak-planked_beef_tenderloin_with_chimichurri_sauce-144777.jpg"
           ]
-        }, 
+        },
         {
           "id": 9027,
           "title": "Sous Vide Beef Tenderloin With Arugula Chimichurri Sauce",
@@ -194,9 +194,9 @@ class Recipe extends React.Component {
 
   componentDidMount() {
     this.setState(defaultState);
-    this.setState({ 
+    this.setState({
       name: queryString.parse(this.props.location.search).name,
-      id: queryString.parse(this.props.location.search).id 
+      id: queryString.parse(this.props.location.search).id
     }, () => {
       fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${this.state.id}/information?includeNutrition=false`, {
         headers: {
@@ -248,7 +248,7 @@ class Recipe extends React.Component {
             </div>
           </div>
         </div>
-        
+
       );
     }
     return <div style={container}><h1>{name}</h1></div>

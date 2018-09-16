@@ -91,13 +91,15 @@ class Profile extends React.Component {
     let firebaseRef = firebase.database().ref(uid + "/profile");
     firebaseRef.once("value").then((snapshot) => {
       console.log(snapshot.val());
-      this.setState({
-        calories: snapshot.val().calories,
-        diet: snapshot.val().diet,
-        excluded: snapshot.val().excluded
-      })
+      if (snapshot.val())
+      {
+        this.setState({
+          calories: snapshot.val().calories,
+          diet: snapshot.val().diet,
+          excluded: snapshot.val().excluded
+        })
+      }
     })
-
   }
 
   render() {
