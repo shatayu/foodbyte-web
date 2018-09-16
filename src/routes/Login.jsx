@@ -27,8 +27,9 @@ class Login extends React.Component {
       //var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      localStorage.setItem("email", user.email);
-      if (user.email != null) {
+      console.log(user);
+      localStorage.setItem("uid", user.uid);
+      if (user.uid != null) {
         window.open("search", "_self");
       }
       // ...
@@ -47,8 +48,7 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log(localStorage.getItem("email"));
-    if (localStorage.getItem("email") != null) {
+    if (localStorage.getItem("uid") != null) {
       window.open("search", "_self");
     }
 
