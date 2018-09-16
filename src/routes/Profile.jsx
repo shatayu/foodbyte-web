@@ -6,6 +6,7 @@ let firebase = require('firebase/app');
 require('firebase/database');
 
 let firebaseCredentials = require('../firebaseCredentials');
+
 const submitToFirebase = (firebaseObject) => {
   // store recipe and timestamp in firebase
   let uid = localStorage.getItem("uid");
@@ -43,6 +44,24 @@ class Profile extends React.Component {
   saveConfig(e) {
     e.preventDefault();
     submitToFirebase(this.state);
+  }
+
+  componentDidMount() {
+    let config = firebaseCredentials.default;
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+
+    let uid = localStorage.getItem("uid");
+    let firebaseRef = firebase.database().ref(uid + "/profile");
+    firebaseRef.once("value").then((snapshot) => {
+      console.log(snapshot.val());
+      this.setState({
+        calories: snapshot.val().calories,
+        diet: snapshot.val().diet,
+        excluded: snapshot.val().excluded
+      })
+    })
 
   }
 
