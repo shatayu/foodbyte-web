@@ -28,6 +28,21 @@ const submitStyling = {
   marginTop: "50px"
 }
 
+const logoutStyling = {
+  width: "300px",
+  height: "48px",
+  backgroundColor: STYLE_CONSTS.COLORS.PINK,
+
+  borderRadius: "35px",
+  border: "5px solid " + STYLE_CONSTS.COLORS.YELLOW,
+
+  color: STYLE_CONSTS.COLORS.YELLOW,
+  fontSize: "30px",
+  marginTop: "50px",
+  marginLeft: "50%",
+  transform: "translateX(-50%)"
+}
+
 const containerStyling = {
   width: '30%',
   height: 'auto',
@@ -104,6 +119,7 @@ class Profile extends React.Component {
 
   render() {
     return (
+      <div>
       <form onSubmit={this.saveConfig.bind(this)}>
         <div style={{textAlign: "center", position: "relative", marginTop: "100px"}}>
           <div style={containerStyling}>
@@ -147,9 +163,53 @@ class Profile extends React.Component {
               onChange={(e) => this.setState({ diet: e.target.value })} 
             />
           </div>
-          <button type='submit' style={submitStyling}>SUBMIT</button>
+          <button 
+          type='submit' 
+          style={submitStyling}
+          id="submitButton"
+          onMouseEnter={() => {
+            let button = document.getElementById("submitButton");
+            button.style.borderColor = STYLE_CONSTS.COLORS.WHITE,
+              button.style.color = STYLE_CONSTS.COLORS.WHITE
+          }}
+          onMouseLeave={() => {
+            let button = document.getElementById("submitButton");
+            button.style.borderColor = STYLE_CONSTS.COLORS.YELLOW,
+              button.style.color = STYLE_CONSTS.COLORS.YELLOW
+          }}
+          onClick={() => {
+            let button = document.getElementById("submitButton");
+            button.innerHTML = "SAVED";
+
+            setTimeout(() => {
+              button.innerHTML = "SAVE"
+            }, 350)
+          }}
+          >SAVE
+          </button>
         </div>
       </form>
+      <button 
+      id="logout"
+      style={logoutStyling}
+      onClick={() => {
+        localStorage.removeItem("uid");
+        window.open("/", "_self");
+      }}
+      onMouseEnter={() => {
+        let button = document.getElementById("logout");
+        button.style.borderColor = STYLE_CONSTS.COLORS.WHITE,
+          button.style.color = STYLE_CONSTS.COLORS.WHITE
+      }}
+      onMouseLeave={() => {
+        let button = document.getElementById("logout");
+        button.style.borderColor = STYLE_CONSTS.COLORS.YELLOW,
+          button.style.color = STYLE_CONSTS.COLORS.YELLOW
+      }}
+      >
+      LOG OUT
+      </button>
+      </div>
     );
   }
 

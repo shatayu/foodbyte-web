@@ -6,11 +6,13 @@ import STYLE_CONSTS from '../style.js';
 const favoritesStyling= {
  position: 'absolute',
  top: '50%',
- left: '28%',
+ left: '50%',
  fontSize: '80px',
  fontFamily: 'helvetica',
- color: STYLE_CONSTS.COLORS.YELLOW
+ color: STYLE_CONSTS.COLORS.YELLOW,
+ transform: "translateX(-50%)"
 }
+
 let firebase = require('firebase/app');
 require('firebase/database');
 

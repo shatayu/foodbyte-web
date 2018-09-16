@@ -16,7 +16,8 @@ const button = {
   border: "10px solid " + COLORS.YELLOW,
 
   color: COLORS.YELLOW,
-  fontSize: "30px"
+  fontSize: "30px",
+  marginTop: "20px"
 };
 
 
@@ -122,7 +123,9 @@ class MealPlan extends React.Component {
         textAlign: 'center'
       }}>
         <StatusMessage status={fetching} />
-        <div>
+        <div style = {{
+          marginTop: "20px"
+        }}>
           {fetching ? '' : recipes.length > 0 ? recipes : 'No profile to generate a meal plan' }
           <br />
           { recipes.length > 0 ? 
