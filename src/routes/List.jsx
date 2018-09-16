@@ -43,7 +43,7 @@ const redirect = (recipe) => {
   
 
   // redirect user
-  // window.location.href = `/recipe?id=${recipe.id}&name=${recipe.title}`;
+  window.location.href = `/recipe?id=${recipe.id}&name=${recipe.title}`;
 };
 
 class List extends React.Component {
