@@ -50,24 +50,54 @@ class Recommended extends React.Component {
 
     let uid = localStorage.getItem("uid");
 
-    let history = firebase.database().ref(uid + "/history");
-    history.on('value', (snapshot) => {
-      let firebaseHistory = snapshot.val();
+    let meal = firebase.database().ref(uid + "/mealplan");
+    
+      meal.on('value', (snapshot) => {
+        let mealValue = snapshot.val();
+        if (mealValue) {
+          let recipes = mealValue.recipes.map((meal, index) => {
+            return <RecipeCard key={index} recipe={meal} onClick={() => redirect(meal)} />;
+          });
+          this.setState({ recipes, fetching: false });
+        } else {
+          this.generateMealPlan.call(this);
+        }
+      })
 
-      // store cards in state, render them
-      let recipes = [];
-      if (firebaseHistory) {
-        Object.keys(firebaseHistory).forEach((key, index) => {
-          //console.log(firebaseHistory[key]);
-          recipes.push(<RecipeCard key={index} recipe={firebaseHistory[key]} onClick={() => redirect(firebaseHistory[key])}/>)
+  }
+
+  generateMealPlan() {
+    let uid = localStorage.getItem("uid");
+    let updates = {};
+      // Fetch profile
+      let profile = firebase.database().ref(uid + '/profile');
+      if (profile) {
+        profile.on('value', (snapshot) => {
+          let profileValue = snapshot.val();
+          fetch(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/mealplans/generate?diet=${profileValue.diet}&exclude=${profileValue.excluded}&targetCalories=${profileValue.calories}&timeFrame=day`,
+          {
+            headers: {
+              'X-Mashape-Key': '6aGSnelJ44mshYgdX2miZaUN8OAip1Vq2ZDjsnlrc9irpPowAd',
+              'Accept': 'application/json'
+            }
+          }).then((data) => {
+            return data.json();
+          }).then((data) => {
+            let mealPlan = {
+              recipes: data.meals
+            };
+            if (data.meals) {
+              let recipes = data.meals.map((meal, index) => {
+                return <RecipeCard key={index} recipe={meal} onClick={() => redirect(meal)} />;
+              });
+              this.setState({ recipes, fetching: false }, () => {
+                updates[uid + '/mealplan'] = mealPlan;
+                firebase.database().ref().update(updates);
+              })
+            }
+          });
         });
-        recipes = recipes.reverse();
-        this.setState({ recipes, fetching: false });
-      } else {
-        this.setState({ fetching: false, recipes: [] })
       }
-
-    })
   }
 
   render() {
@@ -78,7 +108,9 @@ class Recommended extends React.Component {
       }}>
         <StatusMessage status={fetching} />
         <div>
-          {fetching ? '' : recipes.length > 0 ? recipes : 'No history to display' }
+          {fetching ? '' : recipes.length > 0 ? recipes : 'No profile to generate a meal plan' }
+          <br />
+          { recipes.length > 0 ? <button onClick={this.generateMealPlan.bind(this)}>Generate New Meal Plan</button> : '' }
         </div>
       </div>
     );
